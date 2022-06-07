@@ -62,91 +62,101 @@ struct HomeScreen: View {
                     .padding(.leading, 20)
                                     
                     // App Settings
-                    HStack(alignment: .center, spacing: 10) {
-                        // Left Section
+                    VStack(alignment: .leading) {
+                        // Game Settings Text
                         VStack(alignment: .leading) {
-                            // Game Settings Text
-                            VStack(alignment: .leading) {
-                                Text("Game Settings")
-                                    .bold()
-                                    .font(.largeTitle)
-                                Text("Select the difficulty of your game!")
-                                    .font(.title2)
-                            }
-                            
-                            // Easy Button
-                            Button {
-                                currentHardness = .Easy
-                                isNotSel = false
-                            } label: {
-                                Text("Easy")
-                                    .font(.title2)
-                                    .bold()
-                                    .frame(width: geometry.size.width/2, height: 30)
-                                    .padding()
-                                    .background(.green)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(15)
-                            }
-                            
-                            // Medium Button
-                            Button {
-                                currentHardness = .Medium
-                                isNotSel = false
-                            } label: {
-                                Text("Medium")
-                                    .font(.title2)
-                                    .bold()
-                                    .frame(width: geometry.size.width/2, height: 30)
-                                    .padding()
-                                    .background(Color(UIColor(named: "MediumYellow")!))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(15)
-                            }
-                            
-                            // Hard Button
-                            Button {
-                                currentHardness = .Hard
-                                isNotSel = false
-                            } label: {
-                                Text("Hard")
-                                    .font(.title2)
-                                    .bold()
-                                    .frame(width: geometry.size.width/2, height: 30)
-                                    .padding()
-                                    .background(.red)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(15)
-                            }
-                            
-                            // Extreme Button
-                            Button {
-                                currentHardness = .Extreme
-                                isNotSel = false
-                            } label: {
-                                Text("Extreme")
-                                    .font(.title2)
-                                    .bold()
-                                    .frame(width: geometry.size.width/2, height: 30)
-                                    .padding()
-                                    .background(Color(UIColor(named: "ExtremeRed")!))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(15)
-                            }
-                        }
-                        Spacer()
-                        
-                        // Right Section
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("**Currently Selected:**")
+                            Text("Game Settings")
+                                .bold()
+                                .font(.largeTitle)
+                            Text("Select the difficulty of your game!")
                                 .font(.title2)
-                            Text(String(describing: currentHardness) == "NotSelected" ? "Not Selected" : String(describing: currentHardness))
-                                .font(.title3)
                         }
-                        .padding()
-                        .background(Color(UIColor(named: "LightGrey")!))
-                        .cornerRadius(15)
-                        Spacer()
+                        
+                        // Buttons
+                        HStack {
+                            // Left Section
+                            VStack(alignment: .center) {
+                                // Easy Button
+                                Button {
+                                    currentHardness = .Easy
+                                    isNotSel = false
+                                } label: {
+                                    Text("Easy")
+                                        .font(.title2)
+                                        .bold()
+                                        .frame(width: geometry.size.width/2, height: 30)
+                                        .padding()
+                                        .background(.green)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(15)
+                                }
+                                
+                                // Medium Button
+                                Button {
+                                    currentHardness = .Medium
+                                    isNotSel = false
+                                } label: {
+                                    Text("Medium")
+                                        .font(.title2)
+                                        .bold()
+                                        .frame(width: geometry.size.width/2, height: 30)
+                                        .padding()
+                                        .background(Color(UIColor(named: "MediumYellow")!))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(15)
+                                }
+                                
+                                // Hard Button
+                                Button {
+                                    currentHardness = .Hard
+                                    isNotSel = false
+                                } label: {
+                                    Text("Hard")
+                                        .font(.title2)
+                                        .bold()
+                                        .frame(width: geometry.size.width/2, height: 30)
+                                        .padding()
+                                        .background(.red)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(15)
+                                }
+                                
+                                // Extreme Button
+                                Button {
+                                    currentHardness = .Extreme
+                                    isNotSel = false
+                                } label: {
+                                    Text("Extreme")
+                                        .font(.title2)
+                                        .bold()
+                                        .frame(width: geometry.size.width/2, height: 30)
+                                        .padding()
+                                        .background(Color(UIColor(named: "ExtremeRed")!))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(15)
+                                }
+                                Spacer()
+                            }
+                            
+                            Spacer()
+                            
+                            // Right Section
+                            VStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text("**Currently Selected:**")
+                                        .font(.title2)
+                                    Text(String(describing: currentHardness) == "NotSelected" ? "Not Selected" : String(describing: currentHardness))
+                                        .font(.title3)
+                                }
+                                .padding()
+                                .background(Color(UIColor(named: "LightGrey")!))
+                                .cornerRadius(15)
+                                
+                                Spacer()
+                            }
+                            
+                            Spacer()
+                        }
                     }
                     .padding()
                     .padding(.leading, 20)
@@ -186,7 +196,7 @@ struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HomeScreen()
-                .previewInterfaceOrientation(.portraitUpsideDown)
+                .previewInterfaceOrientation(.portrait)
         }
     }
 }

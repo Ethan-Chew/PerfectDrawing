@@ -15,9 +15,10 @@ struct DrawingScreen: View {
     let storageManager = StorageManager()
     
     @State private var canvasView = PKCanvasView()
-        
+    @State private var toolPicker = PKToolPicker()
+    
     var body: some View {
-        DrawingCanvas(canvasView: $canvasView)
+        DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
             .onAppear() {
                 print(appData.difficultyImage)
             }

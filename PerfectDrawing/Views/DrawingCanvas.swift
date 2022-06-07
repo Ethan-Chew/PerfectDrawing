@@ -11,6 +11,7 @@ import SwiftUI
 
 struct DrawingCanvas {
     @Binding var canvasView: PKCanvasView
+    @Binding var toolPicker: PKToolPicker
 }
 
 extension DrawingCanvas: UIViewRepresentable {
@@ -19,6 +20,10 @@ extension DrawingCanvas: UIViewRepresentable {
         #if targetEnvironment(simulator)
         canvasView.drawingPolicy = .anyInput
         #endif
+        canvasView.backgroundColor = .white
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
+        canvasView.becomeFirstResponder()
         return canvasView
     }
     

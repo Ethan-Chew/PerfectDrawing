@@ -11,3 +11,10 @@ import SwiftUI
 enum GameType {
     case Easy, Medium, Hard, Extreme, NotSelected
 }
+
+struct ImageData: Codable {
+    var easy: [Data]
+    var medium: [Data]
+    var hard: [Data]
+    var extreme: [Data]
+}

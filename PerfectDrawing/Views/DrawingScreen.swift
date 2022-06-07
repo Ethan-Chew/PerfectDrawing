@@ -19,9 +19,6 @@ struct DrawingScreen: View {
     
     var body: some View {
         DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
-            .onAppear() {
-                print(appData.difficultyImage)
-            }
     }
 }
 

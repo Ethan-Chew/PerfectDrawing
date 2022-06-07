@@ -14,7 +14,9 @@ public class StorageManager: ObservableObject {
     let storage = Storage.storage()
     let appData = AppData()
     
-    func listImages() {
+    var imageData = ImageData(easy: [], medium: [], hard: [], extreme: [])
+    
+    func reloadImages() {
         let imageTypes = ["easy", "medium", "hard", "extreme"]
         
         for type in imageTypes {
@@ -26,35 +28,30 @@ public class StorageManager: ObservableObject {
                 }
 
                 for item in res!.items {
-                    print("\(type), \(item)")
-                }
-            }
-        }
-    }
-    
-    func getRelatedImage(imageType: String) {
-        let storageReference = storage.reference().child(imageType)
-        var imageArr: [UIImage] = []
-        
-        storageReference.listAll { (res, err) in
-            if let err = err {
-                print("Error in getting \(imageType) images, failed with: \(err.localizedDescription)")
-            }
-            
-            for item in res!.items {
-                let imageRef = self.storage.reference(forURL: String(describing: item))
-                imageRef.getData(maxSize: (1 * 1024 * 1024)) { (data, err) in
-                    if let err = err {
-                        print("An Error Occurred: \(err.localizedDescription)")
-                    }
-                    
-                    if let img = data {
-                        let image: UIImage! = UIImage(data: img)
-                        imageArr.append(image)
+                    let imageRef = self.storage.reference(forURL: String(describing: item))
+                    imageRef.getData(maxSize: (1 * 1024 * 1024)) { (data, err) in
+                        if let err = err {
+                            print("An Error Occurred: \(err.localizedDescription)")
+                        }
+                        
+                        if let img = data {
+                            switch type {
+                            case "easy":
+                                self.imageData.easy.append(img)
+                            case "medium":
+                                self.imageData.medium.append(img)
+                            case "hard":
+                                self.imageData.hard.append(img)
+                            case "extreme":
+                                self.imageData.extreme.append(img)
+                            default:
+                                break
+                            }
+                        }
                     }
                 }
             }
         }
-        appData.difficultyImage = imageArr
+        appData.imageData = imageData
     }
 }

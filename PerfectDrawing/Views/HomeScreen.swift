@@ -11,13 +11,13 @@ import SwiftUI
 struct HomeScreen: View {
     
     // Variables
-    @State var currentHardness: GameType = .NotSelected
     @State var isNotSel: Bool = true
     @State var selection: Int? = nil
     @State var isNavigationBarHidden: Bool = true
     
     // Classes
     let storageManager = StorageManager()
+    let appData = AppData()
     
     var body: some View {
         GeometryReader { geometry in
@@ -78,7 +78,7 @@ struct HomeScreen: View {
                             VStack(alignment: .center) {
                                 // Easy Button
                                 Button {
-                                    currentHardness = .Easy
+                                    appData.currentDifficulty = .Easy
                                     isNotSel = false
                                 } label: {
                                     Text("Easy")
@@ -93,7 +93,7 @@ struct HomeScreen: View {
                                 
                                 // Medium Button
                                 Button {
-                                    currentHardness = .Medium
+                                    appData.currentDifficulty = .Medium
                                     isNotSel = false
                                 } label: {
                                     Text("Medium")
@@ -108,7 +108,7 @@ struct HomeScreen: View {
                                 
                                 // Hard Button
                                 Button {
-                                    currentHardness = .Hard
+                                    appData.currentDifficulty = .Hard
                                     isNotSel = false
                                 } label: {
                                     Text("Hard")
@@ -123,7 +123,7 @@ struct HomeScreen: View {
                                 
                                 // Extreme Button
                                 Button {
-                                    currentHardness = .Extreme
+                                    appData.currentDifficulty = .Extreme
                                     isNotSel = false
                                 } label: {
                                     Text("Extreme")
@@ -145,7 +145,7 @@ struct HomeScreen: View {
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("**Currently Selected:**")
                                         .font(.title2)
-                                    Text(String(describing: currentHardness) == "NotSelected" ? "Not Selected" : String(describing: currentHardness))
+                                    Text(String(describing: appData.currentDifficulty) == "NotSelected" ? "Not Selected" : String(describing: appData.currentDifficulty))
                                         .font(.title3)
                                 }
                                 .padding()

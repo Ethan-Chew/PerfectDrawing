@@ -6,10 +6,21 @@
 //
 
 import SwiftUI
+import PencilKit
 
 struct DrawingScreen: View {
+    
+    // Classes
+    let appData = AppData()
+    let storageManager = StorageManager()
+    
+    @State private var canvasView = PKCanvasView()
+        
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        DrawingCanvas(canvasView: $canvasView)
+            .onAppear() {
+                print(appData.difficultyImage)
+            }
     }
 }
 

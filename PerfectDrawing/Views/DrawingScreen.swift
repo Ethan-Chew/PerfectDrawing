@@ -14,11 +14,31 @@ struct DrawingScreen: View {
     let appData = AppData()
     let storageManager = StorageManager()
     
+    // PencilKit
     @State private var canvasView = PKCanvasView()
     @State private var toolPicker = PKToolPicker()
     
+    // Variables
+    @State var roundNum: Int = 1
+    
     var body: some View {
-        DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+        VStack(alignment: .leading, spacing: 30) {
+            HStack {
+                switch appData.currentDifficulty {
+                case .Easy:
+                    Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
+                case .Medium:
+                    Image(uiImage: UIImage(data: appData.imageData.medium[roundNum - 1])!)
+                case .Hard:
+                    Image(uiImage: UIImage(data: appData.imageData.hard[roundNum - 1])!)
+                case .Extreme:
+                    Image(uiImage: UIImage(data: appData.imageData.extreme[roundNum - 1])!)
+                case .NotSelected:
+                    Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
+                }
+            }
+            DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+        }
     }
 }
 

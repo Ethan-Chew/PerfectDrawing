@@ -34,7 +34,20 @@ class AppData: ObservableObject {
     
     @Published var currentDifficulty: GameType {
         didSet {
-            userDefaults.set(currentDifficulty, forKey: "currentDifficulty")
+            var difficulty = ""
+            switch currentDifficulty {
+            case .Easy:
+                difficulty = "Easy"
+            case .Medium:
+                difficulty = "Medium"
+            case .Hard:
+                difficulty = "Hard"
+            case .Extreme:
+                difficulty = "Extreme"
+            case .NotSelected:
+                difficulty = "NotSelected"
+            }
+            userDefaults.set(difficulty, forKey: "currentDifficulty")
         }
     }
     
@@ -57,6 +70,22 @@ class AppData: ObservableObject {
         self.isFirstOpen = userDefaults.object(forKey: "isFirstOpen") as? Bool ?? true
         
         // Current Difficulty
-        self.currentDifficulty = userDefaults.object(forKey: "currentDifficulty") as? GameType ?? GameType.NotSelected
+        let difficulty = userDefaults.string(forKey: "currentDifficulty")
+        switch difficulty {
+        case "Easy":
+            self.currentDifficulty = GameType.Easy
+        case "Medium":
+            self.currentDifficulty = GameType.Medium
+        case "Hard":
+            self.currentDifficulty = GameType.Hard
+        case "Extreme":
+            self.currentDifficulty = GameType.Extreme
+        case "NotSelected":
+            self.currentDifficulty = GameType.NotSelected
+        case .none:
+            self.currentDifficulty = GameType.NotSelected
+        case .some(_):
+            self.currentDifficulty = GameType.NotSelected
+        }
     }
 }

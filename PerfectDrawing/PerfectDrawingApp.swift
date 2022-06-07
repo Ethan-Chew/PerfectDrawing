@@ -18,29 +18,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct PerfectDrawingApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    let appData = AppData()
-    let storageManager = StorageManager()
     
     var body: some Scene {
         WindowGroup {
             HomeScreen()
-                .onAppear() {
-                    func reloadImg() {
-                        appData.isFirstOpen.toggle()
-                        storageManager.reloadImages()
-                        appData.lastDataUpdate = Int(Date().timeIntervalSince1970)
-                    }
-                    
-                    if (appData.isFirstOpen) {
-                        reloadImg()
-                    }
-                    
-                    let currTime = Int(Date().timeIntervalSince1970)
-                    
-                    if (appData.lastDataUpdate + 172800 < currTime) {
-                        reloadImg()
-                    }
-                }
         }
     }
 }

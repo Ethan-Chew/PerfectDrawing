@@ -60,7 +60,7 @@ struct HomeScreen: View {
                     }
                     .padding()
                     .padding(.leading, 20)
-                                    
+                    
                     // App Settings
                     VStack(alignment: .leading) {
                         // Game Settings Text
@@ -182,12 +182,29 @@ struct HomeScreen: View {
                 }
                 .navigationBarTitle("Home")
                 .navigationBarHidden(self.isNavigationBarHidden)
-
+                
                 .onAppear {
                     self.isNavigationBarHidden = true
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
+        }
+        .onAppear() {
+            func reloadImg() {
+                appData.isFirstOpen.toggle()
+                storageManager.reloadImages()
+                appData.lastDataUpdate = Int(Date().timeIntervalSince1970)
+            }
+            storageManager.reloadImages()
+            if (appData.isFirstOpen) {
+                reloadImg()
+            }
+            
+            let currTime = Int(Date().timeIntervalSince1970)
+            
+            if (appData.lastDataUpdate + 172800 < currTime) {
+                reloadImg()
+            }
         }
     }
 }

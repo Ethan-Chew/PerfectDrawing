@@ -13,7 +13,7 @@ struct HomeScreen: View {
     // Variables
     @State var isNotSel: Bool = true
     @State var selection: Int? = nil
-    @State var isNavigationBarHidden: Bool = true
+    @State var refreshScreen: Bool = true
     
     // Classes
     let storageManager = StorageManager()
@@ -80,6 +80,7 @@ struct HomeScreen: View {
                                 Button {
                                     appData.currentDifficulty = .Easy
                                     isNotSel = false
+                                    refreshScreen.toggle()
                                 } label: {
                                     Text("Easy")
                                         .font(.title2)
@@ -95,6 +96,7 @@ struct HomeScreen: View {
                                 Button {
                                     appData.currentDifficulty = .Medium
                                     isNotSel = false
+                                    refreshScreen.toggle()
                                 } label: {
                                     Text("Medium")
                                         .font(.title2)
@@ -110,6 +112,7 @@ struct HomeScreen: View {
                                 Button {
                                     appData.currentDifficulty = .Hard
                                     isNotSel = false
+                                    refreshScreen.toggle()
                                 } label: {
                                     Text("Hard")
                                         .font(.title2)
@@ -125,6 +128,7 @@ struct HomeScreen: View {
                                 Button {
                                     appData.currentDifficulty = .Extreme
                                     isNotSel = false
+                                    refreshScreen.toggle()
                                 } label: {
                                     Text("Extreme")
                                         .font(.title2)
@@ -181,11 +185,8 @@ struct HomeScreen: View {
                     .padding(.trailing, 30)
                 }
                 .navigationBarTitle("Home")
-                .navigationBarHidden(self.isNavigationBarHidden)
-                
-                .onAppear {
-                    self.isNavigationBarHidden = true
-                }
+                .navigationBarHidden(true)
+                .background(Color.clear.disabled(refreshScreen))
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }

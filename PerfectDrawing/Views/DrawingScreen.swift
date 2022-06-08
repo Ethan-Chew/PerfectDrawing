@@ -22,22 +22,43 @@ struct DrawingScreen: View {
     @State var roundNum: Int = 1
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            HStack {
-                switch appData.currentDifficulty {
-                case .Easy:
-                    Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
-                case .Medium:
-                    Image(uiImage: UIImage(data: appData.imageData.medium[roundNum - 1])!)
-                case .Hard:
-                    Image(uiImage: UIImage(data: appData.imageData.hard[roundNum - 1])!)
-                case .Extreme:
-                    Image(uiImage: UIImage(data: appData.imageData.extreme[roundNum - 1])!)
-                case .NotSelected:
-                    Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 30) {
+                HStack {
+                    switch appData.currentDifficulty {
+                    case .Easy:
+                        Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width/2, height: 300)
+                    case .Medium:
+                        Image(uiImage: UIImage(data: appData.imageData.medium[roundNum - 1])!)
+                    case .Hard:
+                        Image(uiImage: UIImage(data: appData.imageData.hard[roundNum - 1])!)
+                    case .Extreme:
+                        Image(uiImage: UIImage(data: appData.imageData.extreme[roundNum - 1])!)
+                    case .NotSelected:
+                        Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
+                    }
+                    Spacer() // Placeholder
+                }
+                .padding()
+                
+                Divider()
+                    .frame(width: geometry.size.width/2)
+                
+                DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+            }
+        }
+        .navigationBarTitle("Drawing")
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button {
+                    
+                } label: {
+                    Text("Test")
                 }
             }
-            DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
         }
     }
 }

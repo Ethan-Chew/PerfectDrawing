@@ -33,17 +33,17 @@ public class StorageManager: ObservableObject {
                         if let err = err {
                             print("An Error Occurred: \(err.localizedDescription)")
                         }
-                        
+                                                
                         if let img = data {
                             switch type {
                             case "easy":
-                                self.imageData.easy.append(img)
+                                self.appData.imageData.easy.append(img)
                             case "medium":
-                                self.imageData.medium.append(img)
+                                self.appData.imageData.medium.append(img)
                             case "hard":
-                                self.imageData.hard.append(img)
+                                self.appData.imageData.hard.append(img)
                             case "extreme":
-                                self.imageData.extreme.append(img)
+                                self.appData.imageData.extreme.append(img)
                             default:
                                 break
                             }
@@ -52,6 +52,6 @@ public class StorageManager: ObservableObject {
                 }
             }
         }
-        appData.imageData = imageData
+        print(self.appData.imageData)
     }
 }

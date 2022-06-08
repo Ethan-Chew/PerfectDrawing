@@ -195,7 +195,7 @@ struct HomeScreen: View {
                 storageManager.reloadImages()
                 appData.lastDataUpdate = Int(Date().timeIntervalSince1970)
             }
-            storageManager.reloadImages()
+
             if (appData.isFirstOpen) {
                 reloadImg()
             }

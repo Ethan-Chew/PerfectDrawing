@@ -19,6 +19,8 @@ public class StorageManager: ObservableObject {
     func reloadImages() {
         let imageTypes = ["easy", "medium", "hard", "extreme"]
         
+        appData.imageData = imageData // Reset Data
+        
         for type in imageTypes {
             let storageReference = storage.reference().child(type)
             
@@ -52,6 +54,5 @@ public class StorageManager: ObservableObject {
                 }
             }
         }
-        print(self.appData.imageData)
     }
 }

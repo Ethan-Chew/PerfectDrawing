@@ -39,6 +39,7 @@ public class CompareDrawings: ObservableObject {
                     fatalError("Failed to Compute Distance")
                 }
                 
+                print(distance)
                 return distance
             } else {
                 print("Drawn Image Observation found Nil")

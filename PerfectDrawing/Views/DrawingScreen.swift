@@ -23,38 +23,16 @@ struct DrawingScreen: View {
     @State var roundNum: Int = 1
     @State var deleteConfirmation: Bool = false
     @State var submitConfirmaation: Bool = false
+    @State var showResultsSheet: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 10) {
                 HStack {
-                    switch appData.currentDifficulty {
-                    case .Easy:
-                        Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width/2, height: 200)
-                    case .Medium:
-                        Image(uiImage: UIImage(data: appData.imageData.medium[roundNum - 1])!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width/2, height: 200)
-                    case .Hard:
-                        Image(uiImage: UIImage(data: appData.imageData.hard[roundNum - 1])!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width/2, height: 200)
-                    case .Extreme:
-                        Image(uiImage: UIImage(data: appData.imageData.extreme[roundNum - 1])!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width/2, height: 200)
-                    case .NotSelected:
-                        Image(uiImage: UIImage(data: appData.imageData.easy[roundNum - 1])!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width/2, height: 200)
-                    }
+                    Image(uiImage: UIImage(data: appData.gameImages[roundNum - 1])!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geometry.size.width/2, height: 200)
                     Spacer()
                     
                     VStack(alignment: .leading, spacing: 0) {
@@ -104,27 +82,26 @@ struct DrawingScreen: View {
                 Button("Yes", role: .destructive, action: {
                     var drawnImage: UIImage
                     drawnImage = canvasView.drawing.image(from: canvasView.bounds, scale: CGFloat(1.0))
-                    var currentImage: UIImage
-                    switch appData.currentDifficulty {
-                    case .Easy:
-                        currentImage = UIImage(data: appData.imageData.easy[roundNum - 1])!
-                    case .Medium:
-                        currentImage = UIImage(data: appData.imageData.medium[roundNum - 1])!
-                    case .Hard:
-                        currentImage = UIImage(data: appData.imageData.hard[roundNum - 1])!
-                    case .Extreme:
-                        currentImage = UIImage(data: appData.imageData.extreme[roundNum - 1])!
-                    case .NotSelected:
-                        currentImage = UIImage(data: appData.imageData.easy[roundNum - 1])!
-                    }
+                    let currentImage = UIImage(data: appData.gameImages[roundNum - 1])!
                     let distance = compareDrawings.compare(origImage: drawnImage.pngData()!, drawnImage: currentImage.pngData()!)
-                    appData.gameData.rounds.append(Round(drawnImage: drawnImage.pngData()!, shownImage: currentImage.pngData()!, distance: distance))
-                    
-                    print(appData.gameData.rounds)
+                    if distance != 420.0 {
+                        appData.gameData.rounds.append(Round(roundNum: roundNum, drawnImage: drawnImage.pngData()!, shownImage: currentImage.pngData()!, distance: distance))
+                        
+                        if roundNum < 3 {
+                            roundNum += 1
+                        } else {
+                            
+                        }
+                    } else {
+                        fatalError("Distance Value Error")
+                    }
                 })
             }, message: {
                 Text("Once submitted, you may NOT edit your drawing anymore.")
             })
+            .sheet(isPresented: $showResultsSheet) {
+                ResultSheet()
+            }
             
         }
         .navigationBarTitle("Canvas (\(String(describing: appData.currentDifficulty)) Mode)")

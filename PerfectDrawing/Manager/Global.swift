@@ -23,7 +23,9 @@ struct GameData: Codable {
     var rounds: [Round]
 }
 
-struct Round: Codable {
+struct Round: Codable, Identifiable {
+    var id = UUID()
+    var roundNum: Int
     var drawnImage: Data
     var shownImage: Data
     var distance: Float

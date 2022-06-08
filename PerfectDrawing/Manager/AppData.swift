@@ -64,6 +64,13 @@ class AppData: ObservableObject {
         }
     }
     
+    // Current Game Images
+    @Published var gameImages: [Data] {
+        didSet {
+            userDefaults.set(gameImages, forKey: "gameImages")
+        }
+    }
+    
     init() {
         let decoder = JSONDecoder()
 
@@ -109,5 +116,8 @@ class AppData: ObservableObject {
         } else {
             self.gameData = GameData(rounds: [])
         }
+        
+        // Current Game Images
+        self.gameImages = userDefaults.object(forKey: "gameImages") as? [Data] ?? []
     }
 }

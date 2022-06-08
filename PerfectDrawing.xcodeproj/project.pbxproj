@@ -13,10 +13,10 @@
 		5923C719284E78F0005D92E7 /* DrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5923C718284E78F0005D92E7 /* DrawingCanvas.swift */; };
 		597CF1BF284FA67E00C0ACD8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 597CF1BE284FA67E00C0ACD8 /* GoogleService-Info.plist */; };
 		59AC479E284C5A5C003D2164 /* PerfectDrawingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AC479D284C5A5C003D2164 /* PerfectDrawingApp.swift */; };
-		59AC47A0284C5A5C003D2164 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AC479F284C5A5C003D2164 /* ContentView.swift */; };
 		59AC47A2284C5A5D003D2164 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AC47A1284C5A5D003D2164 /* Assets.xcassets */; };
 		59AC47A5284C5A5D003D2164 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AC47A4284C5A5D003D2164 /* Preview Assets.xcassets */; };
 		59AC47AD284C5A92003D2164 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AC47AC284C5A92003D2164 /* HomeScreen.swift */; };
+		59BD00EB2850AB25003E26AE /* ResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BD00EA2850AB25003E26AE /* ResultSheet.swift */; };
 		59F9F124284C600C00AB1E2E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 59F9F123284C600C00AB1E2E /* FirebaseStorage */; };
 		59F9F128284C602800AB1E2E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F9F127284C602800AB1E2E /* StorageManager.swift */; };
 		59F9F12C284C622400AB1E2E /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F9F12B284C622400AB1E2E /* AppData.swift */; };
@@ -30,10 +30,10 @@
 		597CF1BE284FA67E00C0ACD8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		59AC479A284C5A5C003D2164 /* PerfectDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerfectDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AC479D284C5A5C003D2164 /* PerfectDrawingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfectDrawingApp.swift; sourceTree = "<group>"; };
-		59AC479F284C5A5C003D2164 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		59AC47A1284C5A5D003D2164 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59AC47A4284C5A5D003D2164 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		59AC47AC284C5A92003D2164 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		59BD00EA2850AB25003E26AE /* ResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheet.swift; sourceTree = "<group>"; };
 		59F9F127284C602800AB1E2E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		59F9F12B284C622400AB1E2E /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,10 +89,10 @@
 		59AC47AB284C5A74003D2164 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				59AC479F284C5A5C003D2164 /* ContentView.swift */,
 				59AC47AC284C5A92003D2164 /* HomeScreen.swift */,
 				5923C718284E78F0005D92E7 /* DrawingCanvas.swift */,
 				5923C714284E6FC5005D92E7 /* DrawingScreen.swift */,
+				59BD00EA2850AB25003E26AE /* ResultSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,11 +187,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5923C715284E6FC5005D92E7 /* DrawingScreen.swift in Sources */,
-				59AC47A0284C5A5C003D2164 /* ContentView.swift in Sources */,
 				59AC479E284C5A5C003D2164 /* PerfectDrawingApp.swift in Sources */,
 				5923C713284E5886005D92E7 /* Global.swift in Sources */,
 				59AC47AD284C5A92003D2164 /* HomeScreen.swift in Sources */,
 				5923C719284E78F0005D92E7 /* DrawingCanvas.swift in Sources */,
+				59BD00EB2850AB25003E26AE /* ResultSheet.swift in Sources */,
 				59F9F128284C602800AB1E2E /* StorageManager.swift in Sources */,
 				5923C717284E786C005D92E7 /* CompareDrawings.swift in Sources */,
 				59F9F12C284C622400AB1E2E /* AppData.swift in Sources */,

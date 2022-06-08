@@ -177,7 +177,25 @@ struct HomeScreen: View {
                             .background(isNotSel ? Color.gray : Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(15)
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        switch appData.currentDifficulty {
+                        case .Easy:
+                            appData.gameImages = appData.imageData.easy
+                        case .Medium:
+                            appData.gameImages = appData.imageData.medium
+                        case .Hard:
+                            appData.gameImages = appData.imageData.hard
+                        case .Extreme:
+                            appData.gameImages = appData.imageData.extreme
+                        case .NotSelected:
+                            appData.gameImages = appData.imageData.easy
+                        }
+                        
+                        for _ in 0...3 {
+                            appData.gameImages.shuffle()
+                        }
+                        print("Here")
+                    })
                     .disabled(isNotSel)
                     .padding()
                     .padding(.bottom, 30)

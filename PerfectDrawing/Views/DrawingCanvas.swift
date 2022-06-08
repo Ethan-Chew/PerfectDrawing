@@ -29,4 +29,3 @@ extension DrawingCanvas: UIViewRepresentable {
     
     func updateUIView(_ uiView: PKCanvasView, context: Context) {}
 }
-

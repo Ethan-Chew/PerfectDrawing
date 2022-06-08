@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 import Vision
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 public class CompareDrawings: ObservableObject {
-    func featureprintObservationForImage(atURL url: URL) -> VNFeaturePrintObservation? {
-        let requestHandler = VNImageRequestHandler(url: url, options: [:])
+    func featureprintObservationForImage(data: Data) -> VNFeaturePrintObservation? {
+        
+        let requestHandler = VNImageRequestHandler(data: data, options: [:])
         let request = VNGenerateImageFeaturePrintRequest()
         do {
             try requestHandler.perform([request])
@@ -22,7 +25,28 @@ public class CompareDrawings: ObservableObject {
         }
     }
     
-    func compare() {
+    func compare(origImage: Data, drawnImage: Data) -> Float {
+        let oImgObservation = featureprintObservationForImage(data: origImage) // nil
+        let dImgObservation = featureprintObservationForImage(data: drawnImage) // nil
         
+        if let oImgObservation = oImgObservation {
+            if let dImgObservation = dImgObservation {
+                var distance: Float = 1
+                
+                do {
+                    try oImgObservation.computeDistance(&distance, to: dImgObservation)
+                } catch {
+                    fatalError("Failed to Compute Distance")
+                }
+                
+                return distance
+            } else {
+                print("Drawn Image Observation found Nil")
+            }
+        } else {
+            print("Original Image Observation found Nil")
+        }
+        return 404.0
     }
 }
+

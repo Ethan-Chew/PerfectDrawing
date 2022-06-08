@@ -24,9 +24,9 @@ struct GameData: Codable {
 }
 
 struct Round: Codable {
-    var drawnImage: [Data]
-    var shownImage: [Data]
-    var score: [Data]
+    var drawnImage: Data
+    var shownImage: Data
+    var distance: Float
 }
 
 func determineRank(data: GameData) {

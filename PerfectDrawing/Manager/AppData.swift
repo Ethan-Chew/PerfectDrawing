@@ -12,6 +12,7 @@ import UIKit
 class AppData: ObservableObject {
     let userDefaults = UserDefaults.standard
     
+    // Every Image in the Game (Sorted according to Difficulty)
     @Published var imageData: ImageData {
         didSet {
             let encoder = JSONEncoder()
@@ -20,18 +21,21 @@ class AppData: ObservableObject {
         }
     }
     
+    // Last time Data was updated from Firebase Storage
     @Published var lastDataUpdate: Int {
         didSet {
             userDefaults.set(lastDataUpdate, forKey: "lastDataUpdate")
         }
     }
     
+    // User's First Open of the App
     @Published var isFirstOpen: Bool {
         didSet {
             userDefaults.set(isFirstOpen, forKey: "isFirstOpen")
         }
     }
     
+    // User Selected Difficulty
     @Published var currentDifficulty: GameType {
         didSet {
             var difficulty = ""
@@ -48,6 +52,15 @@ class AppData: ObservableObject {
                 difficulty = "NotSelected"
             }
             userDefaults.set(difficulty, forKey: "currentDifficulty")
+        }
+    }
+    
+    // Current Game Data
+    @Published var gameData: GameData {
+        didSet {
+            let encoder = JSONEncoder()
+            let data = try? encoder.encode(gameData)
+            userDefaults.set(data, forKey: "gameData")
         }
     }
     
@@ -86,6 +99,15 @@ class AppData: ObservableObject {
             self.currentDifficulty = GameType.NotSelected
         case .some(_):
             self.currentDifficulty = GameType.NotSelected
+        }
+        
+        // Current Game Data
+        let rawData = userDefaults.object(forKey: "gameData") as? Data
+        if let rawData = rawData {
+            let data = try? decoder.decode(GameData.self, from: rawData)
+            self.gameData = data ?? GameData(rounds: [])
+        } else {
+            self.gameData = GameData(rounds: [])
         }
     }
 }

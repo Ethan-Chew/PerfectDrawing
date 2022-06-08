@@ -18,3 +18,17 @@ struct ImageData: Codable {
     var hard: [Data]
     var extreme: [Data]
 }
+
+struct GameData: Codable {
+    var rounds: [Round]
+}
+
+struct Round: Codable {
+    var drawnImage: [Data]
+    var shownImage: [Data]
+    var score: [Data]
+}
+
+func determineRank(data: GameData) {
+    
+}

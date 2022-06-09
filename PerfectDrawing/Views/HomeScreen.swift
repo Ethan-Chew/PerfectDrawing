@@ -16,8 +16,8 @@ struct HomeScreen: View {
     @State var refreshScreen: Bool = true
     
     // Classes
-    let storageManager = StorageManager()
-    let appData = AppData()
+    @ObservedObject var storageManager = StorageManager()
+    @ObservedObject var appData = AppData()
     
     var body: some View {
         GeometryReader { geometry in
@@ -168,7 +168,7 @@ struct HomeScreen: View {
                     Spacer()
                     
                     // Start Game Button
-                    NavigationLink(destination: DrawingScreen()) {
+                    NavigationLink(destination: DrawingScreen().preferredColorScheme(.light)) {
                         Text("Start Game\(isNotSel ? " Disabled" : "")")
                             .font(.title2)
                             .bold()
@@ -194,7 +194,6 @@ struct HomeScreen: View {
                         for _ in 0...3 {
                             appData.gameImages.shuffle()
                         }
-                        print(appData.gameImages)
                     })
                     .disabled(isNotSel)
                     .padding()

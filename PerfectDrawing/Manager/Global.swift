@@ -38,7 +38,7 @@ func determinePercentage(roundData: Round) -> Float {
     var roundDist = roundData.distance
     if roundDist > 27.0 { roundDist = 27.0 }
     
-    return 27.0-(min(roundData.distance, 10)/10)*100
+    return 27.0-(roundDist/Float.greatestFiniteMagnitude)*100
 }
 
 func determineRank(percentage: Float) -> String {

@@ -20,7 +20,6 @@ extension DrawingCanvas: UIViewRepresentable {
         #if targetEnvironment(simulator)
         canvasView.drawingPolicy = .anyInput
         #endif
-        canvasView.backgroundColor = .white
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()

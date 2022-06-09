@@ -11,9 +11,9 @@ import PencilKit
 struct DrawingScreen: View {
     
     // Classes
-    let appData = AppData()
-    let storageManager = StorageManager()
-    let compareDrawings = CompareDrawings()
+    @ObservedObject var appData = AppData()
+    @ObservedObject var storageManager = StorageManager()
+    @ObservedObject var compareDrawings = CompareDrawings()
     
     // PencilKit
     @State private var canvasView = PKCanvasView()
@@ -70,6 +70,7 @@ struct DrawingScreen: View {
                     .frame(width: geometry.size.width/2)
                 
                 DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+                    .preferredColorScheme(.light)
                     .alert("Are you sure?", isPresented: $deleteConfirmation, actions: {
                         Button("Yes", role: .destructive, action: {
                             canvasView.drawing = PKDrawing()
@@ -108,12 +109,8 @@ struct DrawingScreen: View {
                 Text("Once submitted, you may NOT edit your drawing anymore.")
             })
             .sheet(isPresented: $showResultsSheet) {
-                ResultSheet()
+                ResultSheet().preferredColorScheme(.light)
             }
-            .onAppear() {
-                print(appData.gameImages)
-            }
-            
         }
         .navigationBarTitle("Canvas (\(String(describing: appData.currentDifficulty)) Mode)")
         .toolbar {
@@ -130,6 +127,9 @@ struct DrawingScreen: View {
                     Image(systemName: "square.and.arrow.up")
                 }
             }
+        }
+        .onAppear() {
+            print(appData.gameImages)
         }
     }
 }

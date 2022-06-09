@@ -85,12 +85,20 @@ struct DrawingScreen: View {
                     let currentImage = UIImage(data: appData.gameImages[roundNum - 1])!
                     let distance = compareDrawings.compare(origImage: drawnImage.pngData()!, drawnImage: currentImage.pngData()!)
                     if distance != 420.0 {
-                        appData.gameData.rounds.append(Round(roundNum: roundNum, drawnImage: drawnImage.pngData()!, shownImage: currentImage.pngData()!, distance: distance))
+                        appData.gameData.rounds.append(Round(roundNum: roundNum, drawnImage: drawnImage.pngData()!, shownImage: currentImage.pngData()!, distance: distance, rank: "", percentage: -1.0))
                         
                         if roundNum < 3 {
                             roundNum += 1
+                            canvasView.drawing = PKDrawing()
                         } else {
-                            
+                            for roundNum in 0..<3 {
+                                let roundPercentage = determinePercentage(roundData: appData.gameData.rounds[roundNum])
+                                let roundRank = determineRank(percentage: roundPercentage)
+                                
+                                appData.gameData.rounds[roundNum].percentage = roundPercentage
+                                appData.gameData.rounds[roundNum].rank = roundRank
+                            }
+                            showResultsSheet = true
                         }
                     } else {
                         fatalError("Distance Value Error")
@@ -101,6 +109,9 @@ struct DrawingScreen: View {
             })
             .sheet(isPresented: $showResultsSheet) {
                 ResultSheet()
+            }
+            .onAppear() {
+                print(appData.gameImages)
             }
             
         }

@@ -29,8 +29,36 @@ struct Round: Codable, Identifiable {
     var drawnImage: Data
     var shownImage: Data
     var distance: Float
+    
+    var rank: String
+    var percentage: Float
 }
 
-func determineRank(data: GameData) {
+func determinePercentage(roundData: Round) -> Float {
+    var roundDist = roundData.distance
+    if roundDist > 27.0 { roundDist = 27.0 }
     
+    return 27.0-(min(roundData.distance, 10)/10)*100
+}
+
+func determineRank(percentage: Float) -> String {
+    if percentage >= 95.0 {
+        return "A++"
+    } else if percentage >= 85.0 {
+        return "A+"
+    } else if percentage >= 75.0 {
+        return "A"
+    } else if percentage >= 68.0 {
+        return "B+"
+    } else if percentage >= 64.0 {
+        return "B"
+    } else if percentage >= 60.0 {
+        return "C+"
+    } else if percentage >= 55.0 {
+        return "C"
+    } else if percentage >= 45.0 {
+        return "D"
+    } else {
+        return "F"
+    }
 }

@@ -194,7 +194,7 @@ struct HomeScreen: View {
                         for _ in 0...3 {
                             appData.gameImages.shuffle()
                         }
-                        print("Here")
+                        print(appData.gameImages)
                     })
                     .disabled(isNotSel)
                     .padding()
@@ -209,6 +209,10 @@ struct HomeScreen: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
         .onAppear() {
+            appData.currentDifficulty = .NotSelected
+            appData.gameData.rounds = []
+            appData.gameImages = []
+            
             func reloadImg() {
                 appData.isFirstOpen.toggle()
                 storageManager.reloadImages()

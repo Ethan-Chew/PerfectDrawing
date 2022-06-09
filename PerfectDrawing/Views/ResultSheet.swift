@@ -13,15 +13,22 @@ struct ResultSheet: View {
     let appData = AppData()
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text("Results")
-                .font(.largeTitle)
-                .bold()
-            Spacer()
-            ForEach(appData.gameData.rounds) { round in
-                Text("Hi")
+        ScrollView {
+            VStack(alignment: .center) {
+                Text("Results")
+                    .font(.largeTitle)
+                    .bold()
+                Spacer()
+                ForEach(appData.gameData.rounds) { round in
+                    HStack {
+                        Text(round.rank)
+                    }
+                }
+                Spacer()
             }
-            Spacer()
+        }
+        .onAppear() {
+            print(appData.gameData)
         }
     }
 }

@@ -12,9 +12,8 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 
 public class CompareDrawings: ObservableObject {
-    func featureprintObservationForImage(data: Data) -> VNFeaturePrintObservation? {
-        
-        let requestHandler = VNImageRequestHandler(data: data, options: [:])
+    func featureprintObservationForImage(atURL url: URL) -> VNFeaturePrintObservation? {
+        let requestHandler = VNImageRequestHandler(url: url, options: [:])
         let request = VNGenerateImageFeaturePrintRequest()
         do {
             try requestHandler.perform([request])
@@ -25,16 +24,16 @@ public class CompareDrawings: ObservableObject {
         }
     }
     
-    func compare(origImage: Data, drawnImage: Data) -> Float {
-        let oImgObservation = featureprintObservationForImage(data: origImage) // nil
-        let dImgObservation = featureprintObservationForImage(data: drawnImage) // nil
+    func compare(origImage: URL, drawnImage: URL) -> Float {
+        let oImgObservation = featureprintObservationForImage(atURL: origImage) // nil
+        let dImgObservation = featureprintObservationForImage(atURL: drawnImage) // nil
         
         if let oImgObservation = oImgObservation {
             if let dImgObservation = dImgObservation {
                 var distance: Float = 1
                 
                 do {
-                    try oImgObservation.computeDistance(&distance, to: dImgObservation)
+                    try dImgObservation.computeDistance(&distance, to: oImgObservation)
                 } catch {
                     fatalError("Failed to Compute Distance")
                 }
@@ -49,4 +48,3 @@ public class CompareDrawings: ObservableObject {
         return 404.0
     }
 }
-

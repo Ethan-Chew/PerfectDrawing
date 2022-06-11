@@ -71,6 +71,7 @@ struct DrawingScreen: View {
                 
                 DrawingCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
                     .preferredColorScheme(.light)
+                    .foregroundColor(.white)
                     .alert("Are you sure?", isPresented: $deleteConfirmation, actions: {
                         Button("Yes", role: .destructive, action: {
                             canvasView.drawing = PKDrawing()
@@ -84,9 +85,25 @@ struct DrawingScreen: View {
                     var drawnImage: UIImage
                     drawnImage = canvasView.drawing.image(from: canvasView.bounds, scale: CGFloat(1.0))
                     let currentImage = UIImage(data: appData.gameImages[roundNum - 1])!
-                    let distance = compareDrawings.compare(origImage: drawnImage.pngData()!, drawnImage: currentImage.pngData()!)
+                    
+                    var drawnImageLocalURL: URL
+                    if let drawnURL = saveImage(image: drawnImage) {
+                        drawnImageLocalURL = drawnURL
+                    } else {
+                        fatalError("Error in saving Drawn Image")
+                    }
+                    
+                    var currentImageLocalURL: URL
+                    if let currentURL = saveImage(image: currentImage) {
+                        currentImageLocalURL = currentURL
+                    } else {
+                        fatalError("Error in saving Current Image")
+                    }
+                    
+                    let distance = compareDrawings.compare(origImage: currentImageLocalURL, drawnImage: drawnImageLocalURL)
+                                        
                     if distance != 420.0 {
-                        appData.gameData.rounds.append(Round(roundNum: roundNum, drawnImage: drawnImage.pngData()!, shownImage: currentImage.pngData()!, distance: distance, rank: "", percentage: -1.0))
+                        appData.gameData.rounds.append(Round(roundNum: roundNum, drawnImage: drawnImageLocalURL, shownImage: currentImageLocalURL, distance: distance, rank: "", percentage: -1.0))
                         
                         if roundNum < 3 {
                             roundNum += 1
@@ -134,8 +151,21 @@ struct DrawingScreen: View {
     }
 }
 
-private extension DrawingScreen {
-    
+extension DrawingScreen {
+    func saveImage(image: UIImage) -> URL? {
+        guard let imageData = image.pngData() else {
+            return nil
+        }
+        let baseURL = FileManager.default.temporaryDirectory
+        let imageURL = baseURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("png")
+        do {
+            try imageData.write(to: imageURL)
+            return imageURL
+        } catch {
+            print("Error saving image to \(imageURL.path): \(error)")
+            return nil
+        }
+    }
 }
 
 struct DrawingScreen_Previews: PreviewProvider {
